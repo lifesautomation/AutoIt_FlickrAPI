@@ -99,10 +99,10 @@ Func _Flickr_GetAccessToken($perm = "read")
 	Local $Part1 = "GET"
 	Local $Part2 = 'https://www.flickr.com/services/oauth/request_token'
 	Local $Part3 = "oauth_callback=oob" _
-				 & "&oauth_consumer_key=" & $__Flickr_ApiKey  _
-				 & "&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
-				 & "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" &  _TimeGetStamp() _
-				 & "&oauth_version=1.0"
+		 & "&oauth_consumer_key=" & $__Flickr_ApiKey  _
+		 & "&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
+		 & "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" &  _TimeGetStamp() _
+		 & "&oauth_version=1.0"
 	Local $baseString = $Part1 & "&" & _URIEncode($Part2) & "&" & _URIEncode($Part3)
 	Local $signature  = _URIEncode(base64(hmac($__Flickr_Secret & "&", $baseString, "sha1")))
 	Local $RqData     = _HttpRequest(2, $Part2 & "?" & $Part3 & '&oauth_signature=' & $signature)
@@ -117,12 +117,12 @@ Func _Flickr_GetAccessToken($perm = "read")
 	Local $Part1 = "GET"
 	Local $Part2 = 'https://www.flickr.com/services/oauth/access_token'
 	Local $Part3 = "oauth_callback=oob" _
-				 & "&oauth_consumer_key=" & $__Flickr_ApiKey  _
-				 & "&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
-				 & "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" & _TimeGetStamp() _
-				 & "&oauth_token=" & $Rs[0] _
-				 & "&oauth_verifier=" & $InputBox _
-				 & "&oauth_version=1.0"
+		 & "&oauth_consumer_key=" & $__Flickr_ApiKey  _
+		 & "&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
+		 & "&oauth_signature_method=HMAC-SHA1&oauth_timestamp=" & _TimeGetStamp() _
+		 & "&oauth_token=" & $Rs[0] _
+		 & "&oauth_verifier=" & $InputBox _
+		 & "&oauth_version=1.0"
 	Local $baseString = $Part1 & "&" & _URIEncode($Part2) & "&" & _URIEncode($Part3)
 	Local $signature  = _URIEncode(base64(hmac($__Flickr_Secret & "&" & $Rs[1], $baseString, "sha1")))
 	Local $RqData     = _HttpRequest(2,$Part2 & "?" & $Part3 & '&oauth_signature=' & $signature)
@@ -195,9 +195,9 @@ Func _Flickr_ApiGetUrl($Method, $ParamArray, $OAuth = False, $IsSign = False, $I
 	If $IsSignWithOAuthSecret = Default Then $IsSignWithOAuthSecret = False
 	; ------------------------------------------------------------------------------------------------------
 	Local $Params = "method=" & $Method _
-					&"&nojsoncallback=1" _
-					&"&format=json" _
-					&"&api_key=" & $__Flickr_ApiKey
+		&"&nojsoncallback=1" _
+		&"&format=json" _
+		&"&api_key=" & $__Flickr_ApiKey
 	; ------------------------------------------------------------------------------------------------------
 	If $ParamArray <> "" or IsArray($ParamArray) Then
 		If not IsArray($ParamArray) Then $ParamArray = StringSplit($ParamArray, "&", 2)
@@ -215,9 +215,9 @@ Func _Flickr_ApiGetUrl($Method, $ParamArray, $OAuth = False, $IsSign = False, $I
 	If $IsSign Then
 		$Params = StringReplace($Params, "&api_key=", "&oauth_consumer_key=")
 		$Params &= "&oauth_version=1.0" _
-				   &"&oauth_signature_method=HMAC-SHA1" _
-				   &"&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
-				   &"&oauth_timestamp=" & _TimeGetStamp()
+		   &"&oauth_signature_method=HMAC-SHA1" _
+		   &"&oauth_nonce=" & String(Random(11111111, 99999999, 1)) _
+		   &"&oauth_timestamp=" & _TimeGetStamp()
 		If $IsSignWithOAuthSecret Then
 			$Params &= "&oauth_token=" & $__Flickr_Oauth_Token
 		EndIf
