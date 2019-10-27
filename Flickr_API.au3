@@ -1,5 +1,5 @@
-; Flickr API write by Ltnhan.st.94
-; Email: ltnhan.st.94@gmail.com
+; Author: LifesAutomation
+; Email:  lifesautomation@gmail.com
 #include-once
 #include <_HttpRequest.au3> ; UDF _HttpRequest của tác giả Huân Hoàng
 #include <Date.au3>
